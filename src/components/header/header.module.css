@@ -1,8 +1,9 @@
 .header {
   display: flex;
   flex-direction: column;
-  background-color: aqua;
+  background-color: chocolate;
   width: 100%;
+  padding-bottom: 2px;
 }
 
 .title {
@@ -23,6 +24,15 @@
   cursor: pointer;
 }
 
+.active-button {
+  color: white;
+  font-weight: bold;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+}
 @media (min-width: /*landscape-phone*/615px) {
   .title {
     font-size: large;
