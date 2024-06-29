@@ -12,7 +12,6 @@ export interface INewsItem {
 
 export const NewsItem: FC<INewsItem> = ({
   serialNumber,
-  id,
   by,
   title,
   score,

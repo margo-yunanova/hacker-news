@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import styles from './header.module.css';
 
 export type sortingType = 'new' | 'best' | 'top';

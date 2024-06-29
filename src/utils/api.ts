@@ -1,4 +1,4 @@
-import { TNews, TNewsItem } from './types';
+import { TNewsItem } from './types';
 import { NEWS_API_URL } from './constants';
 
 const checkResponse = (res: Response) =>
