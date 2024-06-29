@@ -1,30 +1,52 @@
-# React + TypeScript + Vite
+Ссылка на деплой - https://hacker-news-ycombinator-app.netlify.app/
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+<!-- 
+#### Вопрос 2
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### **Задание:**
 
-## Expanding the ESLint configuration
+Необходимо сделать SPA приложение с использованием библиотеки React.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### **Продуктовое описание:**
 
-- Configure the top-level `parserOptions` property like this:
+Необходимо реализовать аналог сервиса Hacker News. Нужно реализовать ленту новостей и переход на каждую конкретную новость. Дизайн на твое усмотрение.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-};
-```
+#### Лента новостей:
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+*   Должен быть бесконечный скролл/пагниция, ограниченный 15/30/60 новостями на странице (точное кол-во на твое усмотрение).
+*   Должны быть 3 вида сортировки (beststories, newstories и topstories).
+*   При клике на заголовок должна открываться новость. При клике на комментарии, должна открыться лента комментариев для этой новости [Пример того, что должно открыться при клике на комментарии.](https://news.ycombinator.com/item?id=40704179)
+
+Новости должны обновляться раз в 30 секунд, также должна быть кнопка для ручного обновления списка новостей (при этом после нажатия на нее таймер по обновлению списка должен сбрасываться).
+
+#### Новость:
+
+*   Должна содержать заголовок и ссылку на новость, score и автора новости(by).
+*   Список комментариев (kids). Не забудь сделать вложенность комментариев.
+*   Каждый комментарий должен содержать поле score и автора комментария.
+
+### **Техническое описание:**
+
+*   Необходимо реализовать **typescript** SPA приложение.
+*   Описывай комментарии к функциям в формате JSDoc.
+*   Постарайся по максимуму использовать нативные средства браузера. Запрещено использовать css библиотеки (tailwind, bootstrap, etc). Можно (даже нужно) использовать css modules/sass.
+*   Рекомендуется **не** использовать библиотеки для запросов в api (типа Axios, React Query).
+*   Сайт должен быть адаптивным и нормально выглядеть на устройствах типа iPhone SE (375\*667px).
+
+  
+Для сборки js рекомендуется использовать webpack или vite.
+
+### **Будет плюсом:**
+
+*   Возможность сохранять в избранное новости (можно использовать localstorage, websql). Подразумевается отдельная страницы с избранными новостями.
+*   Service Worker (offline режим работы, уведомления о новых новостях, PWA).
+*   Деплой на бесплатный хостинг и ссылка на него.
+
+  
+Hacker News api: [https://github.com/HackerNews/API](https://github.com/HackerNews/API)
+
+### **Формат решения:**
+
+Ссылка на github/gitlab репозиторий. Будем смотреть только ветку master/main, не коммить после окончания времени в них.  
+Если приложению нужны переменные окружения, добавь файл .env.default. -->
