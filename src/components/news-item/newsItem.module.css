@@ -1,0 +1,49 @@
+.list-item {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  color: black;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: small;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  cursor: pointer;
+  color: black;
+}
+
+.title-block {
+  display: inline-block;
+  align-items: flex-end;
+}
+
+.subtitle {
+  font-size: smaller;
+  color: gray;
+}
+
+@media (min-width: /*landscape-phone*/615px) {
+  .title {
+    font-size: medium;
+  }
+
+  .subtitle {
+    font-size: small;
+  }
+}
+
+@media (min-width: /*landscape-tablet*/914px) {
+  .title {
+    font-size: large;
+  }
+
+  .subtitle {
+    font-size: medium;
+  }
+}
