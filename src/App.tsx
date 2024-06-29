@@ -28,7 +28,7 @@ function App() {
   useEffect(() => {
     setLoading(true);
     Promise.all(
-      newsIdList.slice(0, 10).map(async (id) => await getNewsItem(id)),
+      newsIdList.slice(0, 30).map(async (id) => await getNewsItem(id)),
     ).then((items) => {
       setNews(items);
       setLoading(false);
