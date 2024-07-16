@@ -1,9 +1,9 @@
 .header {
   display: flex;
   flex-direction: column;
-  background-color: chocolate;
+  background-color: #ff9900;
   width: 100%;
-  padding-bottom: 2px;
+  padding: 12px;
 }
 
 .title {

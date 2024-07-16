@@ -28,8 +28,18 @@
   color: gray;
 }
 
+.serial-number {
+  font-size: small;
+  font-weight: bold;
+  color: gray;
+}
+
 @media (min-width: /*landscape-phone*/615px) {
   .title {
+    font-size: medium;
+  }
+
+  .serial-number {
     font-size: medium;
   }
 
@@ -40,6 +50,10 @@
 
 @media (min-width: /*landscape-tablet*/914px) {
   .title {
+    font-size: large;
+  }
+
+  .serial-number {
     font-size: large;
   }
 
