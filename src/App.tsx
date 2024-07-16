@@ -27,12 +27,12 @@ function App() {
 
   useEffect(() => {
     setLoading(true);
-    Promise.all(
-      newsIdList.slice(0, 30).map(async (id) => await getNewsItem(id)),
-    ).then((items) => {
-      setNews(items);
-      setLoading(false);
-    });
+    Promise.all(newsIdList.slice(0, 30).map((id) => getNewsItem(id))).then(
+      (items) => {
+        setNews(items);
+        setLoading(false);
+      },
+    );
   }, [newsIdList]);
 
   const handleSort = async (sortingType: sortingType) => {
