@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import styles from './newsItem.module.css';
+import { Subtitle } from '../subtitle/Subtitle';
 
 export interface INewsItem {
   serialNumber: number;
@@ -8,6 +9,8 @@ export interface INewsItem {
   title: string;
   score: number;
   url: string;
+  favorite: boolean;
+  descendants: number;
 }
 
 export const NewsItem: FC<INewsItem> = ({
@@ -16,20 +19,25 @@ export const NewsItem: FC<INewsItem> = ({
   title,
   score,
   url,
+  favorite,
+  descendants,
 }) => {
-  const domainName = url?.split('/').at(2);
+  const hostname = url?.split('/').at(2);
   return (
     <li className={styles['list-item']}>
       <span className={styles['serial-number']}>{serialNumber}.</span>
       <div className={styles.main}>
-        <a className={styles['title-block']}>
+        <a href={url} target="_blank" className={styles['title-block']}>
           <h2 className={styles.title}>
-            {title} <span className={styles.subtitle}>({domainName})</span>
+            {title} <span className={styles.subtitle}>{hostname}</span>
           </h2>
         </a>
-        <span className={styles.subtitle}>
-          {score} points by {by}
-        </span>
+        <Subtitle
+          score={score}
+          by={by}
+          favorite={favorite}
+          descendants={descendants}
+        />
       </div>
     </li>
   );

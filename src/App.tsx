@@ -70,6 +70,8 @@ function App() {
               score={item.score}
               title={item.title}
               url={item.url}
+              favorite={item.favorite}
+              descendants={item.descendants}
             />
           ))}
         </ul>

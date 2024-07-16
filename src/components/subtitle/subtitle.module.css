@@ -1,0 +1,23 @@
+.subtitle-block {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
+.subtitle {
+  font-size: smaller;
+  color: gray;
+}
+
+@media (min-width: /*landscape-phone*/615px) {
+  .subtitle {
+    font-size: small;
+  }
+}
+
+@media (min-width: /*landscape-tablet*/914px) {
+  .subtitle {
+    font-size: medium;
+  }
+}
