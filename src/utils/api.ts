@@ -27,3 +27,4 @@ export const getBestNews = (): Promise<number[]> =>
 
 export const getNewsItem = (id: number): Promise<TNewsItem> =>
   request(`item/${id}`, { method: 'GET' });
+export const getMaxNewsItem = () => request('maxitem', { method: 'GET' });

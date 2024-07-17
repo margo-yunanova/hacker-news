@@ -3,12 +3,15 @@ import styles from './App.module.css';
 import { NewsItem } from './components/news-item/NewsItem';
 import {
   getBestNews,
+  getMaxNewsItem,
   getNewNews,
   getNewsItem,
   getTopNews,
 } from './utils/api.ts';
 import { TNews } from './utils/types';
 import { Header, sortingType } from './components/header/Header';
+
+const LIMIT = 15;
 
 function App() {
   const [newsIdList, setNewsIdList] = useState<number[]>([]);
@@ -17,13 +20,28 @@ function App() {
   const [activeButton, setActiveButton] = useState<'new' | 'best' | 'top'>(
     'new',
   );
+  const [maxNewsItem, setMaxNewsItem] = useState(0);
 
   useEffect(() => {
     setLoading(true);
-    getNewNews().then((news) => {
+    Promise.all([getNewNews(), getMaxNewsItem()]).then(([news, max]) => {
       setNewsIdList(news);
+      setMaxNewsItem(max);
     });
   }, []);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      getMaxNewsItem().then((max) => {
+        if (max > maxNewsItem) {
+          setMaxNewsItem(max);
+          getNewNews().then((news) => setNewsIdList(news));
+        }
+      });
+    }, 30000);
+
+    return () => clearTimeout(timeoutId);
+  }, [maxNewsItem]);
 
   useEffect(() => {
     setLoading(true);
