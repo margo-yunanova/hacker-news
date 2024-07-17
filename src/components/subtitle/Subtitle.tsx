@@ -1,7 +1,9 @@
 import { FC } from 'react';
 import styles from './subtitle.module.css';
+import { useNavigate } from 'react-router-dom';
 
 interface ISubtitle {
+  id: string;
   score: number;
   by: string;
   descendants: number;
@@ -13,7 +15,12 @@ export const Subtitle: FC<ISubtitle> = ({
   by,
   descendants,
   favorite,
+  id,
 }) => {
+  const navigate = useNavigate();
+  const searchParams = new URLSearchParams();
+  searchParams.set('id', id);
+
   return (
     <div className={styles['subtitle-block']}>
       <span className={styles.subtitle}>
@@ -27,7 +34,15 @@ export const Subtitle: FC<ISubtitle> = ({
         </>
       )}
       {descendants > 0 && (
-        <a className={styles.subtitle}>{descendants} comments</a>
+        <a
+          onClick={(e) => {
+            e.preventDefault();
+            navigate(`item?${searchParams.toString()}`);
+          }}
+          className={styles.subtitle}
+        >
+          {descendants} comments
+        </a>
       )}
       {descendants === 0 && <a className={styles.subtitle}>discuss</a>}
     </div>
