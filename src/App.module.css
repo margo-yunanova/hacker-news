@@ -33,3 +33,8 @@
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
 }
+
+.loader-block {
+  display: flex;
+  justify-content: center;
+}

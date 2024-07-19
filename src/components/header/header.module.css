@@ -4,6 +4,7 @@
   background-color: #ff9900;
   width: 100%;
   padding: 12px;
+  box-sizing: border-box;
 }
 
 .title {
