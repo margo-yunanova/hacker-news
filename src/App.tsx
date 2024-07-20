@@ -17,6 +17,7 @@ function App() {
   const [newsIdList, setNewsIdList] = useState<number[]>([]);
   const [news, setNews] = useState<TNews>([]);
   const [loading, setLoading] = useState(false);
+  const [refreshButtonDisabled, setRefreshButtonDisabled] = useState(false);
   const [activeButton, setActiveButton] = useState<'new' | 'best' | 'top'>(
     'new',
   );
@@ -52,10 +53,7 @@ function App() {
 
   useEffect(() => {
     setLoading(true);
-    Promise.all([getNewNews(), getMaxNewsItem()]).then(([news, max]) => {
-      setNewsIdList(news);
-      setMaxNewsItem(max);
-    });
+    getNewNews().then((news) => setNewsIdList(news));
   }, []);
 
   useEffect(() => {
@@ -102,27 +100,51 @@ function App() {
     }
   };
 
+  const handleUpdateNews = async () => {
+    setRefreshButtonDisabled(true);
+    const lastNews = await getNewNews();
+    const prevLastNewsId = lastNews.indexOf(news[0].id);
+    if (prevLastNewsId <= 0) {
+      setRefreshButtonDisabled(false);
+      return;
+    }
+
+    try {
+      const items = await Promise.all(
+        lastNews.slice(0, prevLastNewsId).map((id) => getNewsItem(id)),
+      );
+      setNews([...items, ...news]);
+    } finally {
+      setRefreshButtonDisabled(false);
+    }
+  };
+
   return (
     <div className={styles.main}>
       <Header handleSortButton={handleSort} activeButton={activeButton} />
+      <button onClick={handleUpdateNews} disabled={refreshButtonDisabled}>
+        Получить новые новости
+      </button>
+
       <ul className={styles.list}>
-        {news?.map((item, i) => {
-          if (i + 1 === news.length) {
-            return (
-              <NewsItem
-                key={item.id}
-                serialNumber={i + 1}
-                by={item.by}
-                id={item.id}
-                score={item.score}
-                title={item.title}
-                url={item.url}
-                favorite={item.favorite}
-                descendants={item.descendants}
-                ref={lastItem}
-              />
-            );
-          }
+        {news
+          .map((item, i) => {
+            if (i + 1 === news.length) {
+              return (
+                <NewsItem
+                  key={item.id}
+                  serialNumber={i + 1}
+                  by={item.by}
+                  id={item.id}
+                  score={item.score}
+                  title={item.title}
+                  url={item.url}
+                  favorite={item.favorite}
+                  descendants={item.descendants}
+                  ref={lastItem}
+                />
+              );
+            }
 
           return (
             <NewsItem
