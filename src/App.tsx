@@ -22,31 +22,32 @@ function App() {
   );
   const observer = useRef<IntersectionObserver>();
 
-  const actionInSight: IntersectionObserverCallback = useCallback(
-    (entries) => {
-      if (entries[0].isIntersecting) {
-        setLoading(true);
-        Promise.all(
-          newsIdList
-            .slice(news.length, news.length + LIMIT)
-            .map((id) => getNewsItem(id)),
-        ).then((items) => {
-          setNews([...news, ...items]);
-          setLoading(false);
-        });
-      }
-    },
-    [news, newsIdList],
-  );
-
   const lastItem: RefCallback<HTMLElement> = useCallback(
     (node: HTMLElement | null) => {
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver(actionInSight);
+      if (observer.current) {
+        observer.current.disconnect();
+        observer.current = undefined;
+      }
 
-      if (node) observer.current.observe(node);
+      if (!node) return;
+
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          setLoading(true);
+          Promise.all(
+            newsIdList
+              .slice(news.length, news.length + LIMIT)
+              .map((id) => getNewsItem(id)),
+          ).then((items) => {
+            setNews([...news, ...items]);
+            setLoading(false);
+          });
+        }
+      });
+
+      observer.current.observe(node);
     },
-    [actionInSight],
+    [news, newsIdList],
   );
 
   useEffect(() => {
