@@ -3,7 +3,6 @@ import styles from './App.module.css';
 import { NewsItem } from './components/news-item/NewsItem';
 import {
   getBestNews,
-  getMaxNewsItem,
   getNewNews,
   getNewsItem,
   getTopNews,
@@ -21,7 +20,6 @@ function App() {
   const [activeButton, setActiveButton] = useState<'new' | 'best' | 'top'>(
     'new',
   );
-  const [maxNewsItem, setMaxNewsItem] = useState(0);
   const observer = useRef<IntersectionObserver>();
 
   const actionInSight: IntersectionObserverCallback = useCallback(
@@ -55,19 +53,6 @@ function App() {
     setLoading(true);
     getNewNews().then((news) => setNewsIdList(news));
   }, []);
-
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      getMaxNewsItem().then((max) => {
-        if (max > maxNewsItem) {
-          setMaxNewsItem(max);
-          getNewNews().then((news) => setNewsIdList(news));
-        }
-      });
-    }, 30000);
-
-    return () => clearTimeout(timeoutId);
-  }, [maxNewsItem]);
 
   useEffect(() => {
     setLoading(true);
@@ -128,6 +113,7 @@ function App() {
 
       <ul className={styles.list}>
         {news
+          .filter((item) => item !== null)
           .map((item, i) => {
             if (i + 1 === news.length) {
               return (
@@ -146,27 +132,26 @@ function App() {
               );
             }
 
-          return (
-            <NewsItem
-              key={item?.id}
-              serialNumber={i + 1}
-              by={item?.by}
-              id={item?.id}
-              score={item?.score}
-              title={item?.title}
-              url={item?.url}
-              favorite={item?.favorite}
-              descendants={item?.descendants}
-            />
-          );
-        })}
+            return (
+              <NewsItem
+                key={item?.id}
+                serialNumber={i + 1}
+                by={item?.by}
+                id={item?.id}
+                score={item?.score}
+                title={item?.title}
+                url={item?.url}
+                favorite={item?.favorite}
+                descendants={item?.descendants}
+              />
+            );
+          })}
       </ul>
       {loading && (
         <div className={styles['loader-block']}>
           <span className={styles.loader}></span>
         </div>
       )}
-      {loading && <span className={styles.loader}></span>}
     </div>
   );
 }
