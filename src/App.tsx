@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { RefCallback, useCallback, useEffect, useRef, useState } from 'react';
 import styles from './App.module.css';
 import { NewsItem } from './components/news-item/NewsItem';
 import {
@@ -39,8 +39,8 @@ function App() {
     [news, newsIdList],
   );
 
-  const lastItem = useCallback(
-    (node: Element) => {
+  const lastItem: RefCallback<HTMLElement> = useCallback(
+    (node: HTMLElement | null) => {
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver(actionInSight);
 
@@ -114,38 +114,20 @@ function App() {
       <ul className={styles.list}>
         {news
           .filter((item) => item !== null)
-          .map((item, i) => {
-            if (i + 1 === news.length) {
-              return (
-                <NewsItem
-                  key={item.id}
-                  serialNumber={i + 1}
-                  by={item.by}
-                  id={item.id}
-                  score={item.score}
-                  title={item.title}
-                  url={item.url}
-                  favorite={item.favorite}
-                  descendants={item.descendants}
-                  ref={lastItem}
-                />
-              );
-            }
-
-            return (
-              <NewsItem
-                key={item?.id}
-                serialNumber={i + 1}
-                by={item?.by}
-                id={item?.id}
-                score={item?.score}
-                title={item?.title}
-                url={item?.url}
-                favorite={item?.favorite}
-                descendants={item?.descendants}
-              />
-            );
-          })}
+          .map((item, i) => (
+            <NewsItem
+              key={item.id}
+              serialNumber={i + 1}
+              by={item.by}
+              id={item.id}
+              score={item.score}
+              title={item.title}
+              url={item.url}
+              favorite={item.favorite}
+              descendants={item.descendants}
+              ref={i + 1 === news.length ? lastItem : undefined}
+            />
+          ))}
       </ul>
       {loading && (
         <div className={styles['loader-block']}>
