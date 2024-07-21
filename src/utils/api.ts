@@ -1,4 +1,4 @@
-import { TNewsItem } from './types';
+import { TComment, TNewsItem } from './types';
 import { NEWS_API_URL } from './constants';
 
 const checkResponse = (res: Response) =>
@@ -27,4 +27,6 @@ export const getBestNews = (): Promise<number[]> =>
 
 export const getNewsItem = (id: number): Promise<TNewsItem> =>
   request(`item/${id}`, { method: 'GET' });
-export const getMaxNewsItem = () => request('maxitem', { method: 'GET' });
+
+export const getComment = (id: number): Promise<TComment> =>
+  request(`item/${id}`, { method: 'GET' });

@@ -19,3 +19,13 @@ export type TNewsItem = {
 };
 
 export type TNews = TNewsItem[];
+
+export type TComment = {
+  by: string;
+  id: number;
+  kids: number[];
+  parent: number;
+  text: string;
+  time: Date;
+  type: 'comment';
+};
